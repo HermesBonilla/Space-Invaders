@@ -45,7 +45,7 @@ class Laser:
         self.y += vel
 
     def off_screen(self, height):
-        return self.y <= height and self.y >= 0
+        return not (self.y <= height and self.y >= 0)
 
     def collision(self, obj):
         return collide(self, obj)
@@ -53,11 +53,12 @@ class Laser:
 
 # Abstract ship class
 class Ship:
+    COOLDOWN = 30
+
     def __init__(self, x, y, health=100):
         self.x = x
         self.y = y
         self.health = health
-        self.ship_img = None
         self.ship_img = None
         self.laser_img = None
         self.lasers = []
@@ -65,6 +66,30 @@ class Ship:
         
     def draw(self, window):
         window.blit(self.ship_img, (self.x, self.y))
+        for laser in self.lasers:
+            laser.draw(window)
+
+    def move_lasers(self, vel, obj):
+        self.cooldown()
+        for laser in self.lasers:
+            laser.move(vel)
+            if laser.off_screen(HEIGHT):
+                self.lasers.remove(laser)
+            elif laser.collision(obj):
+                obj.health -= 10 # damage of laser
+                self.lasers.remove(laser)
+
+    def cooldown(self):
+        if self.cool_down_counter >= self.COOLDOWN:
+            self.cool_down_counter = 0
+        elif self.cool_down_counter > 0:
+            self.cool_down_counter += 1
+
+    def shoot(self):
+        if self.cool_down_counter == 0:
+            laser = Laser(self.x, self.y, self.laser_img)
+            self.lasers.append(laser)
+            self.cool_down_counter = 1
 
     def get_width(self):
         return self.ship_img.get_width()
@@ -81,7 +106,20 @@ class Player(Ship): # Player class inherits ship class
         self.mask = pygame.mask.from_surface(self.ship_img) 
         self.max_health = health
 
-class Enemy(Ship):
+    def move_lasers(self, vel, objs):
+        self.cooldown()
+        for laser in self.lasers:
+            laser.move(vel)
+            if laser.off_screen(HEIGHT):
+                self.lasers.remove(laser)
+            else:
+                for obj in objs:
+                    if laser.collision(obj):
+                        objs.remove(obj) # damage of laser
+                        self.lasers.remove(laser)
+
+
+class Enemy(Ship): # Enemy class inherits ship class
     COLOR_MAP = {
                 "red": (RED_SPACE_SHIP, RED_LASER),
                 "green": (GREEN_SPACE_SHIP, GREEN_LASER),
@@ -114,6 +152,7 @@ def main():
     enemy_vel = 1 # enemy velocity
 
     player_vel = 5 # player velocity
+    laser_vel = 5
     player = Player(300, 650)
 
     clock = pygame.time.Clock()
@@ -178,14 +217,17 @@ def main():
             player.y -= player_vel
         if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT: # down
             player.y += player_vel
+        if keys[pygame.K_SPACE]:
+            player.shoot()
 
         for enemy in enemies:
             enemy.move(enemy_vel)
+            enemy.move_lasers(laser_vel, player)
             if enemy.y + enemy.get_height() > HEIGHT:
                 lives -= 1
                 enemies.remove(enemy)
 
-
+        player.move_lasers(-laser_vel, enemies)
 
 if __name__ == "__main__":            
     main()
