@@ -44,10 +44,34 @@ class Ship:
         self.cool_down_counter = 0
         
     def draw(self, window):
-        pygame.draw.rect(window, (255,0,0), (self.x, self.y, 50, 50))
+        window.blit(self.ship_img, (self.x, self.y))
+
+    def get_width(self):
+        return self.ship_img.get_width()
+    
+    def get_height(self):
+        return self.ship_img.get_height()
 
 
+class Player(Ship): # Player class inherits ship class
+    def __init__(self, x, y, health=100):
+        super().__init__(x, y, health)
+        self.ship_img = YELLOW_SPACE_SHIP
+        self.laser_img = YELLOW_LASER
+        self.mask = pygame.mask.from_surface(self.ship_img) 
+        self.max_health = health
 
+class Enemy(Ship):
+    COLOR_MAP = {
+                "red": (RED_SPACE_SHIP, RED_LASER),
+                "green": (GREEN_SPACE_SHIP, GREEN_LASER),
+                "blue": (BLUE_SPACE_SHIP, BLUE_LASER) 
+                }
+
+    def __init__(self, x, y, color, health=100):
+        super().__init__(x, y, health)
+        self.ship_img, self.laser_img = self.COLOR_MAP[color]
+        self.mask = pygame.mask.from_surface(self.ship_img)
 
 def main():
     run = True
@@ -57,7 +81,7 @@ def main():
     main_font = pygame.font.SysFont("comicsans", 50)
     player_vel = 5 # velocity
 
-    ship = Ship(300, 650)
+    player = Player(300, 650)
 
     clock = pygame.time.Clock()
 
@@ -69,7 +93,7 @@ def main():
         WIN.blit(lives_label, (10,10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
 
-        ship.draw(WIN)
+        player.draw(WIN)
 
         pygame.display.update()
 
@@ -82,16 +106,16 @@ def main():
                 run = False
         
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a] and ship.x - player_vel > 0: # left
-            ship.x -= player_vel
-        if keys[pygame.K_d] and ship.x + player_vel + 50 < WIDTH: # right
-            ship.x += player_vel
-        if keys[pygame.K_w] and ship.y - player_vel > 0: # up
-            ship.y -= player_vel
-        if keys[pygame.K_s] and ship.y + player_vel + 50 < HEIGHT: # down
-            ship.y += player_vel
+        if keys[pygame.K_a] and player.x - player_vel > 0: # left
+            player.x -= player_vel
+        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # right
+            player.x += player_vel
+        if keys[pygame.K_w] and player.y - player_vel > 0: # up
+            player.y -= player_vel
+        if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT: # down
+            player.y += player_vel
 
-            
+        
 
 
 
