@@ -7,6 +7,10 @@ Modifying the classic arcade game, Space Invaders, to get a better grasp of the 
 
 **Movement Controls**
 
+The player controls the spaceship (displayed below) using these controls:
+
+<img align="left" width="125" height="125" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_ship_yellow.png">
+
 ```bash
 a: right
 w: forwards/up
@@ -40,10 +44,27 @@ Players could crash the spaceship into the aliens (listed below) to sacrifice he
 <img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_ship_red_small.png">
 <br clear="left"/>
 
+<!--
+<img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_laser_blue.png">
+<img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_ship_blue_small.png">
+<img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_laser_yellow.png">
+<img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_ship_yellow.png">
+-->
+
+<br clear="left"/>
+
+**Ways **
+
+```bash
+
+```
+
 ## Installation
+
 ```bash
 git clone https://github.com/HermesBonilla/Space-Invaders.git
 ```
+
 or
 
 Fork the repository by [pressing the button](https://github.com/HermesBonilla/Space-Invaders/fork) on the top left of the repository.
