@@ -53,11 +53,12 @@ Players could crash the spaceship into the aliens (listed below) to sacrifice he
 
 <br clear="left"/>
 
-**Ways **
+**How to Lose**
 
-```bash
+Game Over occurs when *either* :
 
-```
+- Health bar turns completely red (ran out of health)
+- Lives ran out (aliens went past you)
 
 ## Installation
 
