@@ -5,6 +5,8 @@ Modifying the classic arcade game, Space Invaders, to get a better grasp of the 
 
 ![Space Invaders Demo GIF](https://media.giphy.com/media/twfPUhE4wvRZM3fKS3/giphy.gif)
 
+**Movement Controls**
+
 ```bash
 a: right
 w: forwards/up
@@ -13,6 +15,30 @@ d: left
 
 space: shoot a laser
 ```
+
+**Damage**
+
+If lasers (listed below) hit the spaceship, it loses part of its healthbar.
+
+<!--Laser PNG Display-->
+
+<br clear="left"/>
+<img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_laser_blue.png">
+<img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_laser_green.png">
+<img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_laser_red.png">
+<br clear="left"/>
+
+*OR*
+
+Players could crash the spaceship into the aliens (listed below) to sacrifice health but get rid of the alien in return.
+
+<!--Alien PNG Display-->
+
+<br clear="left"/>
+<img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_ship_blue_small.png">
+<img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_ship_green_small.png">
+<img align="left" width="100" height="100" src="https://github.com/HermesBonilla/Space-Invaders/blob/master/assets/pixel_ship_red_small.png">
+<br clear="left"/>
 
 ## Installation
 ```bash
